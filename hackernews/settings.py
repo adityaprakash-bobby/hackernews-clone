@@ -31,14 +31,15 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'links',
-    'graphene_django',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'graphene_django',
+    'links',
+    'users',
 ]
 
 MIDDLEWARE = [
@@ -82,10 +83,11 @@ DATABASES = {
     }
 }
 
-# Confi Graphene
-GRAPHENE = {
-    'SCHEMA': 'hackernews.schema.schema',
-}
+# Authentication
+AUTHENTICATION_BACKENDS = [
+    'graphql_jwt.backends.JSONWebTokenBackend',
+    'django.contrib.auth.backends.ModelBackend',
+]
 
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
@@ -105,6 +107,13 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# Config Graphene
+GRAPHENE = {
+    'SCHEMA': 'hackernews.schema.schema',
+    # 'MIDDLEWARE': [
+    #     'graphql_jwt.middleware.JSONWebTokenMiddleware',
+    # ],
+}
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.1/topics/i18n/
